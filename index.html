@@ -4,421 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlowData - Hub de Passation & Maintenance</title>
-    <!-- Lucide Icons Script -->
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-        :root {
-            --transition-speed: 0.22s;
-            --bg-app: #0f172a;
-            --bg-sidebar: #1e293b;
-            --bg-card: #1e293b;
-            --bg-input: #273549;
-            --primary: #da291c; /* Rouge Officiel Rockwool */
-            --primary-glow: rgba(218, 41, 28, 0.09);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --accent-neutral: #475569;
-            --sidebar-label: #64748b;
-            --card-hover-border: #475569;
-            --flow-bg: #0b0f19;
-            --node-bg: #1e293b;
-            --shadow-node: rgba(0, 0, 0, 0.3);
-            --toggle-bg: #334155;
-            --toggle-handle: #ffffff;
-        }
-
-        :root[data-theme="light"] {
-            --bg-app: #f1f5f9;
-            --bg-sidebar: #ffffff;
-            --bg-card: #ffffff;
-            --bg-input: #e2e8f0;
-            --primary: #c8102e;
-            --primary-glow: rgba(200, 16, 46, 0.06);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #cbd5e1;
-            --success: #15803d;
-            --warning: #b45309;
-            --accent-neutral: #94a3b8;
-            --sidebar-label: #94a3b8;
-            --card-hover-border: #94a3b8;
-            --flow-bg: #f8fafc;
-            --node-bg: #ffffff;
-            --shadow-node: rgba(148, 163, 184, 0.1);
-            --toggle-bg: #e2e8f0;
-            --toggle-handle: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
-        }
-
-        body {
-            background-color: var(--bg-app);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 310px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-        }
-
-        .sidebar-brand {
-            padding: 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 15px;
-            color: #ffffff;
-        }
-
-        .brand-title h2 {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
-        .brand-title p {
-            margin: 2px 0 0 0;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .nav-section {
-            padding: 20px 16px;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .nav-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--sidebar-label);
-            padding-left: 12px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .nav-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            padding: 10px 12px;
-            border-radius: 6px;
-            text-align: left;
-            font-size: 0.88rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .tab-btn:hover {
-            background-color: var(--primary-glow);
-            color: var(--text-main);
-        }
-
-        .tab-btn-inner {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tab-btn .nav-icon {
-            width: 18px;
-            height: 18px;
-        }
-
-        .tab-btn:hover .nav-icon, .tab-btn.active .nav-icon {
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary-glow);
-            color: var(--text-main);
-            font-weight: 600;
-            border: 1px solid var(--primary);
-        }
-
-        .nav-status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-        .dot-prod { background-color: var(--success); }
-        .dot-soon { background-color: var(--warning); }
-        .dot-next { background-color: var(--accent-neutral); }
-
-        .sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .theme-toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 28px;
-            background-color: var(--toggle-bg);
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6px;
-        }
-
-        .theme-toggle-handle {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 22px;
-            height: 22px;
-            background-color: var(--toggle-handle);
-            border-radius: 50%;
-            transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        :root[data-theme="light"] .theme-toggle-handle { transform: translateX(32px); }
-
-        /* --- MAIN CONTENT --- */
-        .main-content {
-            margin-left: 310px;
-            padding: 40px 50px;
-            width: calc(100% - 310px);
-            min-height: 100vh;
-        }
-
-        .tab-content {
-            display: none;
-            animation: pageTransition 0.22s ease-out;
-        }
-
-        .tab-content.active { display: block; }
-
-        @keyframes pageTransition {
-            from { opacity: 0; transform: translateY(2px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- HEADER & TITLES --- */
-        .page-header {
-            margin-bottom: 32px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 24px;
-        }
-
-        .page-header-title-area {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .page-header-icon {
-            width: 32px;
-            height: 32px;
-            color: var(--primary);
-        }
-
-        .page-header h1 {
-            font-size: 1.85rem;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
-
-        .page-header p {
-            margin: 6px 0 0 0;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        h2.section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 35px 0 16px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h2.section-title i {
-            width: 20px;
-            height: 20px;
-            color: var(--primary);
-        }
-
-        /* --- CARDS & GRID --- */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 22px;
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
-        .card h3 i { width: 18px; height: 18px; }
-        .card-accent-rw { border-left: 4px solid var(--primary); }
-        .card-accent-warning { border-left: 4px solid var(--warning); }
-        .card-accent-success { border-left: 4px solid var(--success); }
-
-        /* --- TABLES --- */
-        .rwd-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 0.88rem;
-        }
-
-        .rwd-table th {
-            background-color: var(--bg-sidebar);
-            color: var(--text-main);
-            padding: 12px;
-            font-weight: 600;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .rwd-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-muted);
-        }
-
-        .rwd-table tr:nth-child(even) td { background-color: rgba(255, 255, 255, 0.01); }
-        :root[data-theme="light"] .rwd-table tr:nth-child(even) td { background-color: rgba(0, 0, 0, 0.01); }
-
-        /* --- CODE & PIPELINE --- */
-        code {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: var(--bg-input);
-            padding: 3px 6px;
-            border-radius: 4px;
-            color: var(--text-main);
-            font-size: 0.82rem;
-        }
-
-        .code-block {
-            background-color: var(--flow-bg);
-            border: 1px solid var(--border);
-            padding: 14px;
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #38bdf8;
-            overflow-x: auto;
-            margin: 8px 0;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.72rem;
-            font-weight: 600;
-        }
-        .badge-success { background-color: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
-        .badge-warning { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
-        .badge-neutral { background-color: rgba(148, 163, 184, 0.1); color: var(--text-muted); border: 1px solid var(--border); }
-
-        .flow-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--flow-bg);
-            border: 1px solid var(--border);
-            padding: 24px;
-            border-radius: 6px;
-        }
-
-        .flow-node {
-            background-color: var(--node-bg);
-            border: 1px solid var(--border);
-            padding: 12px 16px;
-            border-radius: 4px;
-            text-align: center;
-            min-width: 140px;
-        }
-
-        .flow-node .node-title { font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;}
-        .flow-node .node-tech { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--primary); }
-
-        p, ul { line-height: 1.5; color: var(--text-muted); font-size: 0.92rem; }
-    </style>
+    
+    <!-- Styles externes -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- --- SIDEBAR --- -->
+    <!-- ========== SIDEBAR ========== -->
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-logo">T</div>
@@ -427,46 +22,67 @@
                 <p>Maintenance Production Planning</p>
             </div>
         </div>
+
         <div class="nav-section">
+            <!-- Section : Documentation Centrale -->
             <div class="nav-label">Documentation Centrale</div>
             <div class="nav-group">
                 <button class="tab-btn active" onclick="navigate(event, 'page-main-passation')">
-                    <div class="tab-btn-inner"><i data-lucide="layout-dashboard" class="nav-icon"></i> Accueil de Passation</div>
+                    <div class="tab-btn-inner">
+                        <i data-lucide="layout-dashboard" class="nav-icon"></i>
+                        Accueil de Passation
+                    </div>
                 </button>
             </div>
 
+            <!-- Section : Détails des Passerelles -->
             <div class="nav-label">Détails des Passerelles</div>
             <div class="nav-group">
                 <button class="tab-btn" onclick="navigate(event, 'page-chargement')">
-                    <div class="tab-btn-inner"><i data-lucide="database" class="nav-icon"></i> 1. Chargement Direct</div>
+                    <div class="tab-btn-inner">
+                        <i data-lucide="database" class="nav-icon"></i>
+                        1. Chargement Direct
+                    </div>
                     <span class="nav-status-dot dot-prod"></span>
                 </button>
                 <button class="tab-btn" onclick="navigate(event, 'page-carnet')">
-                    <div class="tab-btn-inner"><i data-lucide="clipboard-list" class="nav-icon"></i> 2. Carnet de Commandes</div>
+                    <div class="tab-btn-inner">
+                        <i data-lucide="clipboard-list" class="nav-icon"></i>
+                        2. Carnet de Commandes
+                    </div>
                     <span class="nav-status-dot dot-soon"></span>
                 </button>
                 <button class="tab-btn" onclick="navigate(event, 'page-expeditions')">
-                    <div class="tab-btn-inner"><i data-lucide="truck" class="nav-icon"></i> 3. Expéditions</div>
+                    <div class="tab-btn-inner">
+                        <i data-lucide="truck" class="nav-icon"></i>
+                        3. Expéditions
+                    </div>
                     <span class="nav-status-dot dot-next"></span>
                 </button>
                 <button class="tab-btn" onclick="navigate(event, 'page-stocks')">
-                    <div class="tab-btn-inner"><i data-lucide="package" class="nav-icon"></i> 4. Suivi des Stocks</div>
+                    <div class="tab-btn-inner">
+                        <i data-lucide="package" class="nav-icon"></i>
+                        4. Suivi des Stocks
+                    </div>
                     <span class="nav-status-dot dot-next"></span>
                 </button>
             </div>
         </div>
 
+        <!-- Thème Toggle -->
         <div class="sidebar-footer">
             <div class="theme-toggle-switch" id="themeToggle" onclick="toggleTheme()">
-                <span>🌙</span><span>☀️</span><div class="theme-toggle-handle"></div>
+                <span>🌙</span>
+                <span>☀️</span>
+                <div class="theme-toggle-handle"></div>
             </div>
         </div>
     </div>
 
-    <!-- --- MAIN CONTENT --- -->
+    <!-- ========== MAIN CONTENT ========== -->
     <div class="main-content">
 
-        <!-- NOUVELLE PAGE PRINCIPALE : CONTRÔLE ET AUDIT DE PASSATION -->
+        <!-- PAGE 1 : ACCUEIL DE PASSATION -->
         <div id="page-main-passation" class="tab-content active">
             <div class="page-header">
                 <div class="page-header-title-area">
@@ -476,13 +92,13 @@
                 <p>Documentation d'architecture des flux SAP vers Power Query pour assurer la maintenabilité totale par l'équipe logistique.</p>
             </div>
 
-            <!-- BLOC D'ACCUEIL STRATÉGIQUE -->
+            <!-- Bloc Objectif -->
             <div class="card card-accent-rw" style="margin-bottom: 25px;">
-                <h3><i data-lucide="key" style="color: var(--primary);"></i> Objectif de ce Hub</h3>
-                <p>Ce site fait office de <strong>cartographie technique vivante</strong>. Son but unique est d'éviter l'effet « boîte noire » de l'ancien système Access/VBA. Chaque flux, jointure SAP et nettoyage Power Query y est documenté de façon explicite pour garantir l'autonomie complète de l'équipe après mon départ.</p>
+                <h3><i data-lucide="key"></i> Objectif de ce Hub</h3>
+                <p>Ce site fait office de <strong>cartographie technique vivante</strong>. Son but unique est d'éviter l'effet « boîte noire » de l'ancien système Access/VBA. Chaque flux, jointure et règle de calcul est documenté ici pour permettre à l'équipe logistique de maintenir et faire évoluer les rapports de manière autonome.</p>
             </div>
 
-            <!-- SECTION CREATIVE 1 : ÉTAT DES LIEUX DE L'ARCHITECTURE DES QUATRE RAPPORTS -->
+            <!-- Section : Matrice d'Architecture -->
             <h2 class="section-title"><i data-lucide="layers"></i> Matrice d'Architecture des Rapports</h2>
             <table class="rwd-table">
                 <thead>
@@ -521,39 +137,39 @@
                 </tbody>
             </table>
 
-            <!-- SECTION CREATIVE 2 : MATRICE DE DIAGNOSTIC CRITIQUE SAP -->
+            <!-- Section : Guide de Résolution -->
             <h2 class="section-title"><i data-lucide="wrench"></i> Guide de Résolution des Incidents (Runbook)</h2>
             <div class="grid-2">
                 <div class="card card-accent-warning">
-                    <h3><i data-lucide="alert-triangle" style="color: var(--warning);"></i> Incident : Erreur d'autorisation de table</h3>
+                    <h3><i data-lucide="alert-triangle"></i> Erreur d'autorisation de table</h3>
                     <p><strong>Cause :</strong> Lors de la création ou de l'appel d'une SAP Query, certaines tables logicielles bloquent l'accès aux utilisateurs non administrateurs.</p>
-                    <p><strong>Solution de passation :</strong> Formuler immédiatement une demande de droits d'accès spécifiques pour l'utilisateur métier concerné auprès de l'administrateur SAP local (Équipe IT).</p>
+                    <p><strong>Solution :</strong> Formuler immédiatement une demande de droits d'accès spécifiques auprès de l'administrateur SAP.</p>
                 </div>
                 <div class="card card-accent-warning">
-                    <h3><i data-lucide="refresh-cw" style="color: var(--warning);"></i> Incident : Décalage des lignes de commentaires</h3>
+                    <h3><i data-lucide="refresh-cw"></i> Décalage des lignes de commentaires</h3>
                     <p><strong>Cause :</strong> L'actualisation des données écrase la correspondance des lignes dynamiques venant de SAP.</p>
-                    <p><strong>Solution de passation :</strong> Vérifier la validité de la <strong>clé d'association unique</strong> créée sous Excel pour indexer la colonne de saisie de commentaires libres.</p>
+                    <p><strong>Solution :</strong> Vérifier la validité de la <strong>clé d'association unique</strong> créée sous Excel.</p>
                 </div>
             </div>
 
-            <!-- SECTION CREATIVE 3 : COMPILATEUR DES LOGIQUES MÉTIERS M (POWER QUERY) -->
+            <!-- Section : Règles de Calcul -->
             <h2 class="section-title"><i data-lucide="binary"></i> Répertoire Documentaire des Règles de Calcul</h2>
             <div class="card">
-                <p>Toutes les anciennes règles empiriques et approximatives transmises oralement ont été nettoyées et écrites en clair. Voici les blocs logiques majeurs implémentés dans l'éditeur :</p>
+                <p>Les règles empiriques ont été nettoyées et écrites en clair. Voici les blocs logiques majeurs :</p>
                 
-                <div style="margin-top: 15px;">
-                    <strong>Calcul du Reste à Livrer (Carnet de commandes) :</strong>
+                <div style="margin-top: 20px;">
+                    <strong>📊 Calcul du Reste à Livrer :</strong>
                     <div class="code-block">Reste_a_Livrer = [Quantite_Commandee] - [Quantite_Deja_Livree]</div>
                 </div>
 
-                <div style="margin-top: 15px;">
-                    <strong>Filtrage de Traçabilité Commerciale :</strong>
+                <div style="margin-top: 20px;">
+                    <strong>🔍 Filtrage de Traçabilité :</strong>
                     <div class="code-block">Table.SelectRows(Source, each [Type_Poste] <> "Échantillon" and [Type_Poste] <> "Test")</div>
                 </div>
             </div>
         </div>
 
-        <!-- CHARGEMENT DIRECT -->
+        <!-- PAGE 2 : CHARGEMENT DIRECT -->
         <div id="page-chargement" class="tab-content">
             <div class="page-header">
                 <div class="page-header-title-area">
@@ -562,21 +178,43 @@
                 </div>
                 <p>Maintenance opérationnelle du rapport de détection des produits manquants.</p>
             </div>
+
             <h2 class="section-title"><i data-lucide="git-branch"></i> Architecture du Flux</h2>
             <div class="flow-container">
-                <div class="flow-node"><div class="node-title">SAP ECC</div><div class="node-tech">Query Z_CHG_DIR</div></div>
+                <div class="flow-node">
+                    <div class="node-title">SAP ECC</div>
+                    <div class="node-tech">Query Z_CHG_DIR</div>
+                </div>
                 <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
-                <div class="flow-node"><div class="node-title">Extraction brute</div><div class="node-tech">Extract_CD.xlsx</div></div>
+                <div class="flow-node">
+                    <div class="node-title">Extraction brute</div>
+                    <div class="node-tech">Extract_CD.xlsx</div>
+                </div>
                 <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
-                <div class="flow-node" style="border-color: var(--primary);"><div class="node-title">Indexation Excel</div><div class="node-tech">Commentaires Libres</div></div>
+                <div class="flow-node" style="border-color: var(--primary);">
+                    <div class="node-title">Indexation Excel</div>
+                    <div class="node-tech">Commentaires Libres</div>
+                </div>
                 <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
-                <div class="flow-node" style="border-color: var(--success);"><div class="node-title">Restitution Finale</div><div class="node-tech">Utilisateurs Métier</div></div>
+                <div class="flow-node" style="border-color: var(--success);">
+                    <div class="node-title">Restitution Finale</div>
+                    <div class="node-tech">Utilisateurs Métier</div>
+                </div>
             </div>
-            <h2 class="section-title"><i data-lucide="terminal"></i> Procédure de maintenance</h2>
-            <p>Pour mettre à jour : Générer l'extraction brute via la transaction <code>SQ01</code>, écraser le fichier source <code>Extract_CD.xlsx</code> dans le dossier partagé, puis cliquer sur <strong>Actualiser tout</strong> dans le classeur Excel de destination.</p>
+
+            <h2 class="section-title"><i data-lucide="terminal"></i> Procédure de Maintenance</h2>
+            <div class="card">
+                <p>Pour mettre à jour ce rapport :</p>
+                <ol>
+                    <li>Générer l'extraction brute via la transaction <code>SQ01</code></li>
+                    <li>Écraser le fichier source <code>Extract_CD.xlsx</code> dans le dossier partagé</li>
+                    <li>Cliquer sur « Actualiser » dans Excel</li>
+                    <li>Les commentaires restent intacts (clé unique préservée)</li>
+                </ol>
+            </div>
         </div>
 
-        <!-- CARNET DE COMMANDES -->
+        <!-- PAGE 3 : CARNET DE COMMANDES -->
         <div id="page-carnet" class="tab-content">
             <div class="page-header">
                 <div class="page-header-title-area">
@@ -585,17 +223,24 @@
                 </div>
                 <p>Documentation technique du traitement Power Query.</p>
             </div>
+
             <div class="card">
-                <h3>Tables Sources SAP exploitées :</h3>
+                <h3><i data-lucide="database"></i> Tables Sources SAP</h3>
                 <ul>
-                    <li><code>VBAK</code> : En-têtes des documents de vente.</li>
-                    <li><code>VBAP</code> : Postes des documents de vente (quantités et références).</li>
-                    <li><code>VBEP</code> : Échéances des divisions (dates de livraison validées).</li>
+                    <li><code>VBAK</code> : En-têtes des documents de vente</li>
+                    <li><code>VBAP</code> : Postes des documents de vente (quantités et références)</li>
+                    <li><code>VBEP</code> : Échéances des divisions (dates de livraison validées)</li>
                 </ul>
+            </div>
+
+            <!-- Espace pour ajouter du contenu spécifique au carnet -->
+            <h2 class="section-title"><i data-lucide="zap"></i> Logiques Métier Appliquées</h2>
+            <div class="card">
+                <p><em>Ajoutez ici votre documentation spécifique...</em></p>
             </div>
         </div>
 
-        <!-- EXPÉDITIONS -->
+        <!-- PAGE 4 : EXPÉDITIONS -->
         <div id="page-expeditions" class="tab-content">
             <div class="page-header">
                 <div class="page-header-title-area">
@@ -604,12 +249,14 @@
                 </div>
                 <p>Fiche de spécification pour la suite du projet.</p>
             </div>
+
             <div class="card card-accent-neutral">
-                <p>Développement planifié pour la seconde phase du stage (post-soutenance de juillet 2026). Les tables cibles identifiées pour l'extraction SAP sont <code>LIKP</code> (Livraisons en-têtes) et <code>LIPS</code> (Livraisons postes).</p>
+                <h3><i data-lucide="construction"></i> En Développement</h3>
+                <p>Développement planifié pour la seconde phase du stage. Les tables cibles identifiées sont <code>LIKP</code> (Livraisons) et <code>LIPS</code> (Postes de livraison).</p>
             </div>
         </div>
 
-        <!-- STOCKS -->
+        <!-- PAGE 5 : SUIVI DES STOCKS -->
         <div id="page-stocks" class="tab-content">
             <div class="page-header">
                 <div class="page-header-title-area">
@@ -618,33 +265,16 @@
                 </div>
                 <p>Fiche de spécification pour la suite du projet.</p>
             </div>
+
             <div class="card card-accent-neutral">
-                <p>Analyse des niveaux de réserve par référence. Ce module sera calqué sur l'architecture homogène du projet : extraction par SAP Query et agrégation de règles de seuil via Excel Power Query.</p>
+                <h3><i data-lucide="construction"></i> En Développement</h3>
+                <p>Analyse des niveaux de réserve par référence. Ce module sera calqué sur l'architecture homogène du projet : extraction par SAP Query et agrégation de règles de seuil.</p>
             </div>
         </div>
 
     </div>
 
-    <script>
-        lucide.createIcons();
-
-        function navigate(event, pageId) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById(pageId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        function toggleTheme() {
-            const htmlElement = document.documentElement;
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', targetTheme);
-        }
-    </script>
+    <!-- Scripts externes -->
+    <script src="script.js"></script>
 </body>
 </html>
