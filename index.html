@@ -33,6 +33,12 @@
                         Accueil de Passation
                     </div>
                 </button>
+                <button class="tab-btn" onclick="navigate(event, 'page-contexte')">
+                    <div class="tab-btn-inner">
+                        <i data-lucide="info" class="nav-icon"></i>
+                        Contexte & Entreprise
+                    </div>
+                </button>
             </div>
 
             <!-- Section : Détails des Passerelles -->
@@ -95,7 +101,7 @@
             <!-- Bloc Objectif -->
             <div class="card card-accent-rw" style="margin-bottom: 25px;">
                 <h3><i data-lucide="key"></i> Objectif de ce Hub</h3>
-                <p>Ce site fait office de <strong>cartographie technique vivante</strong>. Son but unique est d'éviter l'effet « boîte noire » de l'ancien système Access/VBA. Chaque flux, jointure et règle de calcul est documenté ici pour permettre à l'équipe logistique de maintenir et faire évoluer les rapports de manière autonome.</p>
+                <p>Ce site fait office de <strong>cartographie technique vivante</strong>. Son but unique est d'éviter l'effet « boîte noire » de l'ancien système Access/VBA. Chaque flux, jointure et règle de calcul est documenté explicitement pour permettre à l'équipe logistique de maintenir et faire évoluer les rapports en totale autonomie.</p>
             </div>
 
             <!-- Section : Matrice d'Architecture -->
@@ -169,6 +175,96 @@
             </div>
         </div>
 
+        <!-- PAGE : CONTEXTE & ENTREPRISE -->
+        <div id="page-contexte" class="tab-content">
+            <div class="page-header">
+                <div class="page-header-title-area">
+                    <i data-lucide="info" class="page-header-icon"></i>
+                    <h1>Contexte & Environnement</h1>
+                </div>
+                <p>Présentation de l'entreprise, du service logistique et des enjeux du projet.</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="building" class="nav-icon"></i> Présentation de Rockwool</h2>
+            <div class="card">
+                <p>Le stage s'est déroulé au sein de l'<strong>usine Rockwool de Saint-Éloy-les-Mines</strong>, un site industriel dédié à la fabrication de laine de roche pour l'isolation thermique et acoustique. <strong>Rockwool</strong> est le leader mondial sur ce marché.</p>
+                <p><strong>Valeurs fondamentales :</strong> Intégrité, Sécurité, Durabilité, Excellence.</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="users" class="nav-icon"></i> Service Logistique & Équipe Production Planning</h2>
+            <div class="card">
+                <p>Le stage s'est déroulé dans l'<strong>équipe Purchase & Logistics Production Planning SELM</strong>, sous la responsabilité de <strong>M. Bruno Jeannin</strong>.</p>
+                <p><strong>Missions principales :</strong></p>
+                <ul>
+                    <li>Planification et suivi de la fabrication</li>
+                    <li>Respect des délais de livraison clients</li>
+                    <li>Optimisation des flux logistiques</li>
+                    <li>Gestion des rapports d'indicateurs critiques</li>
+                </ul>
+                <p><strong>Équipe :</strong> 11 personnes coordonnées autour d'une mission commune d'excellence opérationnelle.</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="target" class="nav-icon"></i> Problématique & Enjeux</h2>
+            <div class="card">
+                <p>Chaque rapport du Production Planning nécessitait une <strong>extraction manuelle depuis SAP</strong>, un passage par une <strong>base Access</strong> pour exécuter les requêtes, puis une <strong>mise en forme sous Excel</strong>. Ce circuit en trois étapes était :</p>
+                <ul>
+                    <li>❌ Long et répétitif</li>
+                    <li>❌ Difficile à maintenir</li>
+                    <li>❌ Sujet à des erreurs de copie-collage</li>
+                    <li>❌ Non documenté (risque de perte de connaissances)</li>
+                    <li>❌ Non évolutif (rigid et fragile)</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="zap" class="nav-icon"></i> Objectif du Projet de Refonte</h2>
+            <div class="card card-accent-rw">
+                <p><strong>Mener la refonte de cette architecture pour basculer vers :</strong></p>
+                <ul>
+                    <li>✅ Un flux <strong>simplifié et automatisé</strong></li>
+                    <li>✅ <strong>Connecté directement à SAP</strong> (suppression d'Access)</li>
+                    <li>✅ <strong>Robuste et exploitable</strong> par l'équipe métier</li>
+                    <li>✅ <strong>Maintenable en autonomie</strong> par l'équipe logistique</li>
+                    <li>✅ <strong>Documenté explicitement</strong> (fin de la boîte noire)</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="leaf" class="nav-icon"></i> Enjeux RSE & Green IT</h2>
+            <div class="card">
+                <p>Ce projet intègre les principes de la <strong>Green IT</strong> (numérique éco-responsable) et de la gouvernance des données :</p>
+                <table class="rwd-table">
+                    <thead>
+                        <tr>
+                            <th>Axe RSE</th>
+                            <th>Engagement</th>
+                            <th>Impact Technique</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sobriété Numérique</strong></td>
+                            <td>Suppression du serveur Access + fichiers redondants</td>
+                            <td>Réduction de la duplication et stockage inutile</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Efficacité Énergétique</strong></td>
+                            <td>Optimisation algorithme Power Query</td>
+                            <td>Réduit temps de calcul et sollicitation CPU</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gouvernance & Sécurité</strong></td>
+                            <td>Centralisation des flux à la source SAP</td>
+                            <td>Contrôle des données critiques</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pérennité & Compétences</strong></td>
+                            <td>Transfert de compétences & autonomie technologique</td>
+                            <td>Outils natifs maintenables par l'équipe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- PAGE 2 : CHARGEMENT DIRECT -->
         <div id="page-chargement" class="tab-content">
             <div class="page-header">
@@ -177,6 +273,11 @@
                     <h1>Rapport 1 : Chargement Direct</h1>
                 </div>
                 <p>Maintenance opérationnelle du rapport de détection des produits manquants.</p>
+            </div>
+
+            <div class="card card-accent-rw">
+                <h3><i data-lucide="target"></i> Objectif Opérationnel</h3>
+                <p>Recenser <strong>immédiatement les produits manquants</strong> à l'instant critique entre l'affrètement et le chargement. Toute insuffisance de stock bloque le départ du camion et retarde la livraison. Le rapport isole la cause du blocage et transmet des consignes correctives aux équipes du magasin.</p>
             </div>
 
             <h2 class="section-title"><i data-lucide="git-branch"></i> Architecture du Flux</h2>
@@ -202,15 +303,104 @@
                 </div>
             </div>
 
+            <h2 class="section-title"><i data-lucide="database"></i> Modèle de Données (InfoSet ZZ_DRCTLOAD)</h2>
+            <div class="card">
+                <p>L'InfoSet interconnecte <strong>7 tables maîtresses</strong> de l'ERP pour extraire la structure du flux d'expédition :</p>
+                <table class="rwd-table">
+                    <thead>
+                        <tr>
+                            <th>Table Source</th>
+                            <th>Table Cible</th>
+                            <th>Clé de Jointure</th>
+                            <th>Rôle Fonctionnel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VTTK (En-tête)</td>
+                            <td>VTTP (Item)</td>
+                            <td>TKNUM</td>
+                            <td>Associer le camion aux livraisons</td>
+                        </tr>
+                        <tr>
+                            <td>VTTP (Item)</td>
+                            <td>LIKP (En-tête)</td>
+                            <td>VBELN</td>
+                            <td>Extraire données d'en-tête de livraison</td>
+                        </tr>
+                        <tr>
+                            <td>VTTP (Item)</td>
+                            <td>LIPS (Item)</td>
+                            <td>VBELN</td>
+                            <td>Descendre à la granularité de la ligne d'article</td>
+                        </tr>
+                        <tr>
+                            <td>LIKP (En-tête)</td>
+                            <td>VBPA (Partenaire)</td>
+                            <td>VBELN</td>
+                            <td>Identifier les partenaires commerciaux</td>
+                        </tr>
+                        <tr>
+                            <td>VBPA (Partenaire)</td>
+                            <td>ADRC (Adresse)</td>
+                            <td>ADRNR</td>
+                            <td>Obtenir l'adresse géographique du client</td>
+                        </tr>
+                        <tr>
+                            <td>LIPS (Item)</td>
+                            <td>VBEP (Échéance)</td>
+                            <td>VBELN + POSNR</td>
+                            <td>Croiser les échéances et quantités planifiées</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h2 class="section-title"><i data-lucide="terminal"></i> Procédure de Maintenance</h2>
             <div class="card">
-                <p>Pour mettre à jour ce rapport :</p>
+                <p><strong>Pour mettre à jour ce rapport :</strong></p>
                 <ol>
-                    <li>Générer l'extraction brute via la transaction <code>SQ01</code></li>
+                    <li>Générer l'extraction brute via la transaction <code>SQ01</code> dans SAP</li>
                     <li>Écraser le fichier source <code>Extract_CD.xlsx</code> dans le dossier partagé</li>
-                    <li>Cliquer sur « Actualiser » dans Excel</li>
+                    <li>Cliquer sur « <strong>Actualiser tout</strong> » dans Excel</li>
                     <li>Les commentaires restent intacts (clé unique préservée)</li>
                 </ol>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="zap"></i> Logique de Filtrage à la Source</h2>
+            <div class="card">
+                <p><strong>Trois algorithmes appliqués au sein de l'InfoSet :</strong></p>
+                
+                <h4>Algorithme 1 : Isolation du Périmètre Logistique</h4>
+                <div class="code-block">
+Pour chaque ligne_article planifiée sur DATEPLSL :<br>
+  SI Usine == 'FR01' ET Magasin == '1000' ET<br>
+     Point_Expédition != 'FR14' ET Statut_Camion == '00000000'<br>
+  → Conserver la ligne pour l'analyse
+                </div>
+
+                <h4 style="margin-top: 20px;">Algorithme 2 : Calcul Dynamique des Variables</h4>
+                <div class="code-block">
+Somme_Demandes_Cumulées = 0<br>
+POUR chaque ligne_article qualifiée :<br>
+  Somme_Demandes_Cumulées += Quantité_Livraison<br>
+  Stock_Physique_Disponible = CALL_FUNCTION('Z_GET_STOCK')
+                </div>
+
+                <h4 style="margin-top: 20px;">Algorithme 3 : Logique Binaire de Rupture</h4>
+                <div class="code-block">
+SI Somme_Demandes_Cumulées > Stock_Physique_Disponible<br>
+  Variable_Manquant = Somme_Demandes - Stock_Physique<br>
+  → Inclure la ligne dans le rapport final<br>
+SINON<br>
+  → Éliminer la ligne (Stock suffisant)
+                </div>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="check" class="nav-icon"></i> Statut de Déploiement</h2>
+            <div class="card card-accent-success">
+                <h3>✅ Déployé & Opérationnel</h3>
+                <p><strong>Le rapport Chargement Direct est en production quotidienne</strong> depuis son déploiement. Les retours utilisateurs sont positifs, notamment sur la fiabilité des données et la lisibilité des rapports.</p>
             </div>
         </div>
 
@@ -221,22 +411,133 @@
                     <i data-lucide="clipboard-list" class="page-header-icon"></i>
                     <h1>Rapport 2 : Carnet de Commandes</h1>
                 </div>
-                <p>Documentation technique du traitement Power Query.</p>
+                <p>Documentation technique du traitement Power Query et de la logique en cascade.</p>
             </div>
 
-            <div class="card">
-                <h3><i data-lucide="database"></i> Tables Sources SAP</h3>
-                <ul>
-                    <li><code>VBAK</code> : En-têtes des documents de vente</li>
-                    <li><code>VBAP</code> : Postes des documents de vente (quantités et références)</li>
-                    <li><code>VBEP</code> : Échéances des divisions (dates de livraison validées)</li>
-                </ul>
+            <div class="card card-accent-rw">
+                <h3><i data-lucide="target"></i> Objectif Opérationnel</h3>
+                <p>Offrir une <strong>visibilité glissante sur un horizon H de 6 semaines</strong> (de S-1 à S+4) pour aligner la demande commerciale avec les capacités réelles de production et de stockage. Cet outil permet de gérer les urgences 3J, arbitrer l'adéquation charge/capacité et soutenir l'ordonnancement.</p>
             </div>
 
-            <!-- Espace pour ajouter du contenu spécifique au carnet -->
-            <h2 class="section-title"><i data-lucide="zap"></i> Logiques Métier Appliquées</h2>
+            <h2 class="section-title"><i data-lucide="database"></i> Tables Sources SAP</h2>
             <div class="card">
-                <p><em>Ajoutez ici votre documentation spécifique...</em></p>
+                <p>L'extraction repose sur l'<strong>InfoSet A_MNI_CARNET_CORR</strong> qui consolide les données de trois tables maîtresses du module des ventes (SD) :</p>
+                <table class="rwd-table">
+                    <thead>
+                        <tr>
+                            <th>Table Source</th>
+                            <th>Nom Technique</th>
+                            <th>Rôle et Informations Clés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sales Doc. Header</strong></td>
+                            <td>VBAK</td>
+                            <td>Données d'en-tête des commandes clients (données commerciales, donneur d'ordre)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sales Doc. Item</strong></td>
+                            <td>VBAP</td>
+                            <td>Informations de niveau poste (articles, hiérarchie de produits PRODH)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sales Doc. Schedule</strong></td>
+                            <td>VBEP</td>
+                            <td>Échéances de livraison et planification des quantités demandées par semaine</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px;"><strong>Groupes de données additionnels intégrés :</strong> Stocks physiques (MARD), fiches articles (MARC, MARA, MAKT), transport (VTTK), adresses (VBPA, ADRC).</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="git-branch"></i> Architecture du Flux</h2>
+            <div class="flow-container">
+                <div class="flow-node">
+                    <div class="node-title">SAP Query</div>
+                    <div class="node-tech">Filtrage & pré-segmentation</div>
+                </div>
+                <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+                <div class="flow-node" style="border-color: var(--primary);">
+                    <div class="node-title">Excel (Power Query)</div>
+                    <div class="node-tech">Agrégation & indicateurs</div>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="zap"></i> Logique de Calcul en Cascade</h2>
+            <div class="card">
+                <p>Le calcul repose sur une <strong>transmission dynamique des soldes</strong> d'une période à l'autre. La ressource initiale couvre d'abord le retard en S-1 et le besoin de S0.</p>
+                
+                <h4>Ressources Initiales</h4>
+                <p>Stock disponible + Quarantaine + Encours (Aujourd'hui + Demain)</p>
+
+                <h4 style="margin-top: 15px;">Étape 1 : Alerte Urgence 3J</h4>
+                <div class="code-block">
+SI (Réservé_3J_Ouvrés - Ressources) > 0<br>
+  → À_Lancer_3J (Urgent)
+                </div>
+
+                <h4 style="margin-top: 15px;">Étape 2 : Semaine S0</h4>
+                <div class="code-block">
+Besoin_Total_S0 = Commandes_S0 + Retard_S-1<br>
+Stock_Fin_S0 = MAX(Ressources - Besoin_S0, 0)<br>
+À_Lancer_S0 = MAX(Besoin_S0 - Ressources, 0)
+                </div>
+
+                <h4 style="margin-top: 15px;">Étape 3 : Semaines S+1 à S+4</h4>
+                <div class="code-block">
+Besoin_Net_S+1 = Commandes_S+1 non expédiées<br>
+Stock_Fin_S+1 = MAX(Stock_Fin_S0 - Besoin_S+1, 0)<br>
+À_Lancer_S+1 = MAX(Besoin_S+1 - Stock_Fin_S0, 0)<br>
+<br>
+→ Poursuivre itérativement jusqu'à S+4
+                </div>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="layers"></i> Segmentation Temporelle et Indicateurs</h2>
+            <div class="card">
+                <table class="rwd-table">
+                    <thead>
+                        <tr>
+                            <th>Bloc Temporel</th>
+                            <th>Indicateurs Clés</th>
+                            <th>Finalité Opérationnelle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Le Passé (S-1)</strong></td>
+                            <td>Expédié S-1, Retards</td>
+                            <td>Clôture de la performance passée</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Le Présent (S0)</strong></td>
+                            <td>Carnet initial, Déjà expédié, Reste à lancer</td>
+                            <td>Pilotage des expéditions semaine en cours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disponibilités</strong></td>
+                            <td>Stock dispo, Quarantaine, Encours, Réservé 3J</td>
+                            <td>Consolidation des ressources physiques</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Le Besoin (S0 à S+4)</strong></td>
+                            <td>À Lancer</td>
+                            <td>Identification des ruptures futures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Le Futur (S+1 à S+4)</strong></td>
+                            <td>Carnet glissant, Stock final projeté</td>
+                            <td>Anticipation des goulots d'étranglement</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="check" class="nav-icon"></i> Statut de Déploiement</h2>
+            <div class="card card-accent-warning">
+                <h3>⏳ Finalisé - Déploiement Prévu</h3>
+                <p><strong>Le rapport Carnet de Commandes est finalisé</strong> et son déploiement est prévu dans le courant du mois. Tous les tests de validation métier sont en cours.</p>
             </div>
         </div>
 
@@ -247,12 +548,43 @@
                     <i data-lucide="truck" class="page-header-icon"></i>
                     <h1>Rapport 3 : Suivi des Expéditions</h1>
                 </div>
-                <p>Fiche de spécification pour la suite du projet.</p>
+                <p>Fiche de spécification pour la suite du projet - Traçabilité et performance de service.</p>
             </div>
 
             <div class="card card-accent-neutral">
-                <h3><i data-lucide="construction"></i> En Développement</h3>
-                <p>Développement planifié pour la seconde phase du stage. Les tables cibles identifiées sont <code>LIKP</code> (Livraisons) et <code>LIPS</code> (Postes de livraison).</p>
+                <h3><i data-lucide="construction"></i> En Développement (Seconde Phase)</h3>
+                <p>Ce rapport sera développé dans la seconde partie du stage.</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="target"></i> Objectif Opérationnel</h2>
+            <div class="card">
+                <p><strong>Suivi et traçabilité des livraisons</strong> pour contrôler la performance de service. Cet outil permettra de :</p>
+                <ul>
+                    <li>Tracer l'état de chaque livraison en temps réel</li>
+                    <li>Identifier les livraisons en retard</li>
+                    <li>Mesurer la performance de service auprès des clients</li>
+                    <li>Analyser les goulots d'étranglement logistiques</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="database"></i> Tables Cibles Identifiées</h2>
+            <div class="card">
+                <p>Les tables SAP pertinentes pour ce rapport sont d'ores et déjà identifiées :</p>
+                <ul>
+                    <li><code>LIKP</code> : En-têtes de livraison (dates de départ, destinations)</li>
+                    <li><code>LIPS</code> : Postes de livraison (articles livrés, quantités)</li>
+                    <li><code>VBPA</code> : Partenaires commerciaux (clients expéditaires)</li>
+                    <li><code>ADRC</code> : Adresses (localisation des livraisons)</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="zap"></i> Architecture Planifiée</h2>
+            <div class="card">
+                <p><strong>Le flux suivra la même architecture que le Carnet de Commandes :</strong></p>
+                <div style="margin-top: 15px;">
+                    <strong>SAP Query (SQ01)</strong> → Extraction des données<br>
+                    <strong>Power Query</strong> → Agrégation et calcul des indicateurs de performance
+                </div>
             </div>
         </div>
 
@@ -263,12 +595,49 @@
                     <i data-lucide="package" class="page-header-icon"></i>
                     <h1>Rapport 4 : Suivi des Stocks</h1>
                 </div>
-                <p>Fiche de spécification pour la suite du projet.</p>
+                <p>Fiche de spécification pour la suite du projet - Niveaux de réserve par référence.</p>
             </div>
 
             <div class="card card-accent-neutral">
-                <h3><i data-lucide="construction"></i> En Développement</h3>
-                <p>Analyse des niveaux de réserve par référence. Ce module sera calqué sur l'architecture homogène du projet : extraction par SAP Query et agrégation de règles de seuil.</p>
+                <h3><i data-lucide="construction"></i> En Développement (Seconde Phase)</h3>
+                <p>Ce rapport sera développé dans la seconde partie du stage.</p>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="target"></i> Objectif Opérationnel</h2>
+            <div class="card">
+                <p><strong>Pilotage des niveaux de réserve par référence article</strong> pour sécuriser les réapprovisionnements. Cet outil permettra de :</p>
+                <ul>
+                    <li>Suivre les niveaux de stock en temps réel</li>
+                    <li>Identifier les articles en rupture de stock</li>
+                    <li>Déclencher automatiquement les alertes de réapprovisionnement</li>
+                    <li>Optimiser les encours de fabrication</li>
+                    <li>Analyser les écarts stock vs. prévisionnel</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="database"></i> Tables Cibles Identifiées</h2>
+            <div class="card">
+                <p>Les tables SAP pertinentes pour ce rapport sont :</p>
+                <ul>
+                    <li><code>MARD</code> : Données de stock par dépôt (quantités physiques disponibles)</li>
+                    <li><code>MARC</code> : Données de gestion article (seuils min/max)</li>
+                    <li><code>MARA</code> : Données maîtres article (unités de mesure)</li>
+                    <li><code>MAKT</code> : Textes articles (descriptions)</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="zap"></i> Architecture Planifiée</h2>
+            <div class="card">
+                <p><strong>Le flux suivra la même architecture homogène que les rapports précédents :</strong></p>
+                <div style="margin-top: 15px;">
+                    <strong>SAP Query (SQ01)</strong> → Extraction des niveaux de stock<br>
+                    <strong>Power Query</strong> → Agrégation des règles de seuil et indicateurs de disponibilité
+                </div>
+            </div>
+
+            <h2 class="section-title"><i data-lucide="leaf"></i> Bénéfices de la Refonte</h2>
+            <div class="card">
+                <p>Ce rapport bénéficiera du travail d'exploration réalisé pour les rapports précédents. Les tables SAP pertinentes sont en grande partie déjà connues, ce qui devrait accélérer significativement sa conception et son implémentation.</p>
             </div>
         </div>
 
