@@ -185,7 +185,7 @@
             <div class="flow-container">
                 <div class="flow-node">
                     <div class="node-title">SAP ECC</div>
-                    <div class="node-tech">InfoSet ZZ_DRCTLOAD</div>
+                    <div class="node-tech">InfoSet A_DRCT_LOAD</div>
                 </div>
                 <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
                 <div class="flow-node" style="border-color: var(--primary);">
@@ -202,7 +202,7 @@
             <p style="margin-top: 15px; color: var(--text-secondary); font-size: 0.95em;"><strong>Note :</strong> 100% du traitement se fait dans SAP. Excel n'est utilisé que pour mettre en forme et ajouter des commentaires logistiques.</p>
 
             <!-- Modèle de données -->
-            <h2 class="section-title"><i data-lucide="database"></i> Modèle de Données (InfoSet ZZ_DRCTLOAD)</h2>
+            <h2 class="section-title"><i data-lucide="database"></i> Modèle de Données (InfoSet A_DRCT_LOAD)</h2>
             <div class="card">
                 <p>L'InfoSet relie <strong>7 tables SAP</strong> pour reconstituer fidèlement le flux d'expédition physique :</p>
                 <table class="rwd-table" style="margin-top: 15px;">
@@ -274,20 +274,42 @@
             <!-- Maintenance -->
             <h2 class="section-title"><i data-lucide="wrench"></i> Maintenance et Actualisation</h2>
             <div class="card">
-                <h4>Comment Actualiser les Données ?</h4>
+                <h4>Cycle d'Exécution Automatique</h4>
+                <p style="margin-top: 10px;">Le rapport s'exécute <strong>automatiquement 2 fois par jour</strong> :</p>
+                <table class="rwd-table" style="margin-top: 12px;">
+                    <thead>
+                        <tr>
+                            <th>Créneau</th>
+                            <th>Heure</th>
+                            <th>Date Exécution</th>
+                            <th>Fichier Généré</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Matin</strong></td>
+                            <td>7h00</td>
+                            <td>Date du jour (J)</td>
+                            <td><code>Temp_CD_Matin.xlsx</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Après-midi</strong></td>
+                            <td>13h00</td>
+                            <td>Date du jour (J) jusqu'à demain (J+1)</td>
+                            <td><code>Temp_CD_Après-midi.xlsx</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 12px;"><strong>Archivage :</strong> Les résultats sont archivés quotidiennement dans le dossier <code>/Archive/Chargement_Direct/</code></p>
+
+                <h4 style="margin-top: 20px;">Procédure Manuelle (si besoin)</h4>
                 <ol style="margin-top: 10px;">
                     <li>Ouvrir SAP et accéder à la transaction <code>SQ01</code> (Query)</li>
-                    <li>Lancer la requête <code>Z_CHARGEMENT_DIRECT</code> avec la date du jour</li>
+                    <li>Lancer la requête <code>A_DRCT_LOAD</code> avec la date souhaitée</li>
                     <li>Récupérer l'extraction Excel</li>
+                    <li>Actualiser le fichier <code>Temp_CD_Matin.xlsx</code> ou <code>Temp_CD_Après-midi.xlsx</code></li>
                     <li>Les commentaires logistiques peuvent être ajoutés dans Excel</li>
                 </ol>
-
-                <h4 style="margin-top: 20px;">Cas d'Usage Courants</h4>
-                <ul style="margin-top: 10px;">
-                    <li><strong>Stock insuffisant :</strong> Vérifier que le stock n'a pas été consommé depuis la dernière actualisation</li>
-                    <li><strong>Article disparu du rapport :</strong> Vérifier que l'article n'a pas changé de magasin ou d'usine</li>
-                    <li><strong>Quantité incorrecte :</strong> Vérifier la donnée source dans la table LIPS (livraison)</li>
-                </ul>
             </div>
 
             <!-- Évolution -->
@@ -297,27 +319,27 @@
                 <p style="margin-top: 10px;">Si tu veux ajouter une colonne (ex: "Date prévue de production"), tu dois :</p>
                 <ol style="margin-top: 10px;">
                     <li>Identifier dans quelle table SAP se trouve cette donnée (ex: AFPO pour les ordres de fabrication)</li>
-                    <li>Ouvrir l'InfoSet <code>ZZ_DRCTLOAD</code> en édition (SQ02)</li>
+                    <li>Ouvrir l'InfoSet <code>A_DRCT_LOAD</code> en édition (SQ02)</li>
                     <li>Ajouter une jointure vers la nouvelle table</li>
                     <li>Rajouter le champ dans la liste de sortie</li>
                     <li>Tester et enregistrer</li>
                 </ol>
 
                 <h4 style="margin-top: 20px;">Modifier un Filtre</h4>
-                <p style="margin-top: 10px;">Si tu dois changer le périmètre (ex: inclure FR14), tu dois :</p>
+                <p style="margin-top: 10px;">Si tu dois changer le périmètre (ex: inclure FR14 également), tu dois :</p>
                 <ol style="margin-top: 10px;">
-                    <li>Ouvrir l'InfoSet <code>ZZ_DRCTLOAD</code> (SQ02)</li>
+                    <li>Ouvrir l'InfoSet <code>A_DRCT_LOAD</code> (SQ02)</li>
                     <li>Aller dans la section "Conditions" (Restrictions)</li>
                     <li>Modifier la règle <code>Point_Expédition != 'FR14'</code></li>
                     <li>Enregistrer et retester</li>
                 </ol>
 
                 <h4 style="margin-top: 20px;">Modifier une Règle de Calcul</h4>
-                <p style="margin-top: 10px;">Si tu dois changer la logique (ex: chercher les ruptures au-delà de 5 jours au lieu de immédiatement) :</p>
+                <p style="margin-top: 10px;">Si tu dois changer la logique de détection de rupture (ex: alerter à partir d'une différence > 50 unités) :</p>
                 <ol style="margin-top: 10px;">
-                    <li>Ouvrir l'InfoSet <code>ZZ_DRCTLOAD</code> et aller dans le code ABAP</li>
-                    <li>Localiser la fonction <code>Z_GET_STOCK</code> ou les conditions logiques</li>
-                    <li>Modifier la règle</li>
+                    <li>Ouvrir l'InfoSet <code>A_DRCT_LOAD</code> et aller dans le code ABAP</li>
+                    <li>Localiser la condition <code>Somme_Demandes > Stock_Physique</code></li>
+                    <li>Modifier par : <code>(Somme_Demandes - Stock_Physique) > 50</code></li>
                     <li>Compiler et tester</li>
                 </ol>
             </div>
@@ -409,96 +431,156 @@
                 </table>
             </div>
 
-            <!-- Indicateurs -->
-            <h2 class="section-title"><i data-lucide="layers"></i> Indicateurs Clés (Version Hebdomadaire)</h2>
+            <!-- Règles de Calcul Détaillées -->
+            <h2 class="section-title"><i data-lucide="zap"></i> Règles de Calcul (Version Hebdomadaire)</h2>
             <div class="card">
                 <table class="rwd-table">
                     <thead>
                         <tr>
-                            <th>Bloc Temporel</th>
-                            <th>Indicateurs</th>
-                            <th>Finalité</th>
+                            <th>Semaine</th>
+                            <th>Indicateur</th>
+                            <th>Définition</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Passé (S-1)</strong></td>
-                            <td>Expédié S-1, Retards</td>
-                            <td>Clôture de la semaine précédente</td>
+                            <td rowspan="2"><strong>S-1<br>(Passée)</strong></td>
+                            <td><strong>Total Livré S-1</strong></td>
+                            <td>Commandes prévues la semaine dernière et déjà expédiées (Statut SAP 4, 5, 6, 7)</td>
                         </tr>
                         <tr>
-                            <td><strong>Présent (S0)</strong></td>
-                            <td>Carnet initial, Déjà expédié, Reste à lancer</td>
-                            <td>Pilotage de la semaine en cours</td>
+                            <td><strong>Reste à Livrer S-1 (Retard)</strong></td>
+                            <td>Commandes prévues la semaine dernière mais pas encore expédiées (Statut ≠ 4, 5, 6, 7)</td>
                         </tr>
                         <tr>
-                            <td><strong>Ressources</strong></td>
-                            <td>Stock dispo, Quarantaine, En cours (J+J+1), Réservé 3J</td>
-                            <td>Vérification stock disponible</td>
+                            <td rowspan="5"><strong>S0<br>(Présente)</strong></td>
+                            <td><strong>Total à Livrer S0</strong></td>
+                            <td>Toutes les commandes prévues au planning de cette semaine</td>
                         </tr>
                         <tr>
-                            <td><strong>Besoin (S0→S+4)</strong></td>
-                            <td><strong>À Lancer</strong></td>
-                            <td>Identification des ruptures futures</td>
+                            <td><strong>Déjà Parti S0</strong></td>
+                            <td>Commandes de cette semaine qui sont déjà expédiées (Statut SAP 4, 5, 6, 7)</td>
                         </tr>
                         <tr>
-                            <td><strong>Futur (S+1→S+4)</strong></td>
-                            <td>Carnet glissant, Stock final projeté</td>
-                            <td>Anticipation de la charge</td>
+                            <td><strong>Reste à Livrer S0</strong></td>
+                            <td>(Total à Livrer S0 − Déjà Parti S0) + Reste à Livrer S-1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S0</strong></td>
+                            <td>SI (Reste à Livrer S0 − Ressources Initiales) > 0 → le résultat, sinon 0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stock Fin S0</strong></td>
+                            <td>SI (Ressources Initiales − Reste à Livrer S0) > 0 → le résultat, sinon 0</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>🚨 ALERTE Urgence 3 Jours</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Réservé 3J Ouvrés</strong></td>
+                            <td>Commandes prévues entre aujourd'hui et après-demain, non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>À Lancer 3J (Urgence)</strong></td>
+                            <td>SI (Réservé 3J − Ressources Initiales) > 0 → le résultat, sinon 0</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>S+1</strong></td>
+                            <td><strong>À Livrer S+1</strong></td>
+                            <td>Commandes prévues en S+1 et non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S+1 / Stock Fin S+1</strong></td>
+                            <td>SI (À Livrer S+1 − Stock Fin S0) > 0 → À Lancer, sinon Stock Fin</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>S+2</strong></td>
+                            <td><strong>À Livrer S+2</strong></td>
+                            <td>Commandes prévues en S+2 et non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S+2 / Stock Fin S+2</strong></td>
+                            <td>SI (À Livrer S+2 − Stock Fin S+1) > 0 → À Lancer, sinon Stock Fin</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>S+3</strong></td>
+                            <td><strong>À Livrer S+3</strong></td>
+                            <td>Commandes prévues en S+3 et non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S+3 / Stock Fin S+3</strong></td>
+                            <td>SI (À Livrer S+3 − Stock Fin S+2) > 0 → À Lancer, sinon Stock Fin</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>S+4</strong></td>
+                            <td><strong>À Livrer S+4</strong></td>
+                            <td>Commandes prévues en S+4 et non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S+4 / Stock Fin S+4</strong></td>
+                            <td>SI (À Livrer S+4 − Stock Fin S+3) > 0 → À Lancer, sinon Stock Fin</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>S+5</strong></td>
+                            <td><strong>À Livrer S+5</strong></td>
+                            <td>Commandes prévues en S+5 et non expédiées</td>
+                        </tr>
+                        <tr>
+                            <td><strong>À Lancer S+5 / Stock Fin S+5</strong></td>
+                            <td>SI (À Livrer S+5 − Stock Fin S+4) > 0 → À Lancer, sinon Stock Fin</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Logique Cascade -->
-            <h2 class="section-title"><i data-lucide="zap"></i> Logique de Cascade (Power Query)</h2>
+            <!-- Ressources Initiales -->
+            <h2 class="section-title"><i data-lucide="layers"></i> Ressources Initiales</h2>
             <div class="card">
-                <p><strong>Concept clé :</strong> Le stock restant d'une semaine sert de ressource pour la semaine suivante. Si insuffisant, le manque apparaît dans "À Lancer".</p>
-
-                <h4 style="margin-top: 15px;">Ressources Initiales</h4>
-                <div class="code-block" style="margin-top: 8px;">
-Ressources = Stock Dispo + Quarantaine + Encours (J + J+1)
+                <p><strong>Les ressources disponibles au démarrage du calcul sont constituées de :</strong></p>
+                <div class="code-block" style="margin-top: 12px;">
+Ressources Initiales = Stock Disponible (MARD) + Quarantaine (MARD) + Encours Fabrication (Jour J + Jour J+1)
                 </div>
-
-                <h4 style="margin-top: 15px;">Urgence 3 Jours</h4>
-                <div class="code-block" style="margin-top: 8px;">
-SI (Commandes 3J Ouvrés - Ressources) > 0<br>
-→ À_Lancer_3J = Urgent (Alerte rouge)
-                </div>
-
-                <h4 style="margin-top: 15px;">Semaine S0 (Présente)</h4>
-                <div class="code-block" style="margin-top: 8px;">
-Besoin_S0 = Commandes_S0 + Retard_S-1<br>
-Stock_Fin_S0 = MAX(Ressources - Besoin_S0, 0)<br>
-À_Lancer_S0 = MAX(Besoin_S0 - Ressources, 0)
-                </div>
-
-                <h4 style="margin-top: 15px;">Semaines S+1 à S+4 (Cascade)</h4>
-                <div class="code-block" style="margin-top: 8px;">
-Pour chaque semaine suivante :<br>
-Stock_Fin = MAX(Stock_Fin_Semaine_Précédente - Commandes, 0)<br>
-À_Lancer = MAX(Commandes - Stock_Fin_Précédent, 0)<br>
-→ Report stock à la semaine suivante
-                </div>
+                <p style="margin-top: 12px; font-size: 0.95em; color: var(--text-secondary);">Ces ressources sont cumulées une seule fois au début de la semaine S0 et servent de point de départ pour tous les calculs de cascade.</p>
             </div>
 
             <!-- Maintenance -->
-            <h2 class="section-title"><i data-lucide="wrench"></i> Maintenance</h2>
+            <h2 class="section-title"><i data-lucide="wrench"></i> Maintenance et Actualisation</h2>
             <div class="card">
-                <h4>Actualisation Hebdomadaire</h4>
+                <h4>Procédure Hebdomadaire</h4>
                 <ol style="margin-top: 10px;">
-                    <li>Lancer la requête SAP <code>A_MNI_CARNET_CORR</code> (SQ01)</li>
+                    <li>Lancer la requête SAP <code>A_MNI_CARNET_CORR</code> (SQ01) chaque matin</li>
                     <li>Récupérer le fichier Excel avec les données brutes</li>
                     <li>Power Query se rafraîchit automatiquement</li>
-                    <li>Le rapport affiche les données à jour</li>
+                    <li>Le rapport affiche les données à jour avec la cascade recalculée</li>
                 </ol>
 
-                <h4 style="margin-top: 15px;">Dépannage Courant</h4>
-                <ul style="margin-top: 10px;">
-                    <li><strong>À Lancer très élevé :</strong> Vérifier que le stock en quarantaine est correctement saisi</li>
-                    <li><strong>Commandes manquantes :</strong> Vérifier que le statut de la commande n'est pas "Rejetée" ou "Bloquée"</li>
-                    <li><strong>Écart stock :</strong> Vérifier les données de stock jour J et J+1 (tables MARD)</li>
-                </ul>
+                <h4 style="margin-top: 15px;">Dépannage et Maintenance des Étapes Power Query</h4>
+                <p style="margin-top: 10px;">Si tu dois modifier une règle de calcul ou ajouter une condition dans Power Query :</p>
+                <ol style="margin-top: 10px;">
+                    <li>Ouvrir Excel → <strong>Données</strong> → <strong>Modifier les requêtes</strong></li>
+                    <li>Dans l'éditeur Power Query, tu vois une liste d'étapes (steps) :
+                        <ul style="margin-top: 8px;">
+                            <li><strong>Source</strong> - Données SAP importées</li>
+                            <li><strong>Filtrage</strong> - Élimination des lignes invalides</li>
+                            <li><strong>Group By</strong> - Regroupement par Article, MRP Controller, etc.</li>
+                            <li><strong>Calculs</strong> - Les formules de cascade</li>
+                        </ul>
+                    </li>
+                    <li>Cliquer sur une étape pour la voir et la modifier</li>
+                    <li>Double-cliquer sur la formule pour l'éditer</li>
+                    <li>Exemple : pour modifier le seuil d'urgence 3J, clique sur l'étape "À Lancer 3J" et ajuste la condition</li>
+                    <li>Cliquer sur <strong>"Fermer et appliquer"</strong> une fois terminé</li>
+                </ol>
+
+                <h4 style="margin-top: 15px;">Exemple : Ajouter une Colonne à partir de SAP</h4>
+                <p style="margin-top: 10px;">Si tu veux ajouter une colonne "Client" pour mieux voir qui commande :</p>
+                <ol style="margin-top: 10px;">
+                    <li>Dans la requête SAP (<code>A_MNI_CARNET_CORR</code> - SQ01), ajouter le champ "Client" à la liste de sortie</li>
+                    <li>Récupérer la nouvelle extraction</li>
+                    <li>Dans Excel Power Query, l'étape "Source" affiche déjà le nouveau champ</li>
+                    <li>Aller à l'étape "Group By" et ajouter "Client" comme critère de regroupement</li>
+                    <li>Les calculs se recalculent automatiquement par Client</li>
+                </ol>
             </div>
 
             <!-- Évolution -->
@@ -507,28 +589,32 @@ Stock_Fin = MAX(Stock_Fin_Semaine_Précédente - Commandes, 0)<br>
                 <h4>Ajouter un Nouvel Axe de Segmentation</h4>
                 <p style="margin-top: 10px;">Si tu veux segmenter par "Client" au lieu de "Sales Organization" :</p>
                 <ol style="margin-top: 10px;">
-                    <li>Ouvrir l'InfoSet <code>A_MNI_CARNET_CORR</code> (SQ02)</li>
-                    <li>Ajouter la table KNA1 (Clients) via une jointure</li>
-                    <li>Ajouter le champ "Client" à la sortie</li>
-                    <li>Dans Excel, modifier le "Group By" Power Query pour inclure Client</li>
+                    <li>Ajouter le champ "Client" dans la requête SAP (SQ01)</li>
+                    <li>Dans Excel, ouvrir Power Query (Données → Modifier les requêtes)</li>
+                    <li>Créer une <strong>copie</strong> de la requête (clic droit sur le nom → Dupliquer)</li>
+                    <li>Dans la copie, aller à l'étape "Group By"</li>
+                    <li>Remplacer "Sales Organization" par "Client"</li>
+                    <li>Appliquer et créer une nouvelle feuille Excel avec cette variante</li>
                 </ol>
 
-                <h4 style="margin-top: 15px;">Modifier l'Horizon Temporel</h4>
-                <p style="margin-top: 10px;">Si tu veux passer de 6 semaines à 8 semaines :</p>
+                <h4 style="margin-top: 15px;">Modifier une Formule de Cascade</h4>
+                <p style="margin-top: 10px;">Si tu veux changer la règle de calcul (ex: urgence 5J au lieu de 3J) :</p>
                 <ol style="margin-top: 10px;">
-                    <li>Ouvrir le Power Query (Excel → Données → Modifier les requêtes)</li>
-                    <li>Localiser la logique de cascade</li>
-                    <li>Changer la boucle de S+1→S+4 à S+1→S+6</li>
-                    <li>Ajouter les colonnes S+5 et S+6 au tableau</li>
+                    <li>Ouvrir Power Query (Données → Modifier les requêtes)</li>
+                    <li>Localiser l'étape <strong>"À Lancer 3J"</strong></li>
+                    <li>Cliquer sur l'étape pour la voir</li>
+                    <li>Double-cliquer sur la formule et modifier : changer "3 jours" par "5 jours"</li>
+                    <li>Appliquer la modification</li>
+                    <li>Renommer l'étape en "À Lancer 5J" pour clarifier</li>
                 </ol>
 
-                <h4 style="margin-top: 15px;">Ajouter une Nouvelle Règle de Calcul</h4>
-                <p style="margin-top: 10px;">Si tu veux ajouter un indicateur "Stock de Sécurité" :</p>
+                <h4 style="margin-top: 15px;">Ajouter un Filtre Supplémentaire</h4>
+                <p style="margin-top: 10px;">Si tu veux exclure certaines commandes (ex: les commandes "En Test") :</p>
                 <ol style="margin-top: 10px;">
-                    <li>Définir la règle : Stock de Sécurité = % du Carnet moyen</li>
-                    <li>Ouvrir l'InfoSet et ajouter cette logique dans le code ABAP</li>
-                    <li>Vérifier que la table MARC (données gestion article) contient les seuils min/max</li>
-                    <li>Rajouter la colonne dans l'export</li>
+                    <li>Ouvrir Power Query</li>
+                    <li>Aller à l'étape <strong>"Filtrage"</strong></li>
+                    <li>Ajouter une condition : Statut ≠ "Test"</li>
+                    <li>Appliquer et vérifier que le rapport exclut bien ces lignes</li>
                 </ol>
             </div>
 
