@@ -92,87 +92,65 @@
         <div id="page-main-passation" class="tab-content active">
             <div class="page-header">
                 <div class="page-header-title-area">
-                    <i data-lucide="terminal" class="page-header-icon"></i>
-                    <h1>Console de Passation Technique</h1>
+                    <i data-lucide="book-open" class="page-header-icon"></i>
+                    <h1>Documentation Technique - Outil de Reporting</h1>
                 </div>
-                <p>Documentation d'architecture des flux SAP vers Power Query pour assurer la maintenabilité totale par l'équipe logistique.</p>
             </div>
 
-            <!-- Bloc Objectif -->
+            <!-- Bloc principal : Qu'est-ce que c'est -->
             <div class="card card-accent-rw" style="margin-bottom: 25px;">
-                <h3><i data-lucide="key"></i> Objectif de ce Hub</h3>
-                <p>Ce site fait office de <strong>cartographie technique vivante</strong>. Son but unique est d'éviter l'effet « boîte noire » de l'ancien système Access/VBA. Chaque flux, jointure et règle de calcul est documenté explicitement pour permettre à l'équipe logistique de maintenir et faire évoluer les rapports en totale autonomie.</p>
+                <h3><i data-lucide="info"></i> C'est quoi cette documentation ?</h3>
+                <p>Ceci est la <strong>documentation technique du travail que j'ai réalisé</strong> pendant mon stage chez Rockwool. C'est un guide complet pour comprendre l'outil de reporting que j'ai développé.</p>
             </div>
 
-            <!-- Section : Matrice d'Architecture -->
-            <h2 class="section-title"><i data-lucide="layers"></i> Matrice d'Architecture des Rapports</h2>
-            <table class="rwd-table">
-                <thead>
-                    <tr>
-                        <th>Rapport Applicatif</th>
-                        <th>Source Extraction</th>
-                        <th>Moteur de Traitement</th>
-                        <th>Statut Maintenance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>1. Chargement Direct</strong></td>
-                        <td>SAP Query (SQ01)</td>
-                        <td>Excel + Couche d'indexation libre</td>
-                        <td><span class="badge badge-success">Déployé & Opérationnel</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>2. Carnet de Commandes</strong></td>
-                        <td>SAP Query (SQ01)</td>
-                        <td>Moteur Power Query M</td>
-                        <td><span class="badge badge-warning">Ajustements / Déploiement</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>3. Expéditions</strong></td>
-                        <td>SAP Query (Tables LIKP/LIPS)</td>
-                        <td>Power Query (Règles agrégées)</td>
-                        <td><span class="badge badge-neutral">Planifié (Seconde partie)</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>4. Suivi des Stocks</strong></td>
-                        <td>SAP Query (Extraction brute)</td>
-                        <td>Power Query (Niveaux de réserve)</td>
-                        <td><span class="badge badge-neutral">Planifié (Seconde partie)</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Section : Guide de Résolution -->
-            <h2 class="section-title"><i data-lucide="wrench"></i> Guide de Résolution des Incidents (Runbook)</h2>
-            <div class="grid-2">
-                <div class="card card-accent-warning">
-                    <h3><i data-lucide="alert-triangle"></i> Erreur d'autorisation de table</h3>
-                    <p><strong>Cause :</strong> Lors de la création ou de l'appel d'une SAP Query, certaines tables logicielles bloquent l'accès aux utilisateurs non administrateurs.</p>
-                    <p><strong>Solution :</strong> Formuler immédiatement une demande de droits d'accès spécifiques auprès de l'administrateur SAP.</p>
-                </div>
-                <div class="card card-accent-warning">
-                    <h3><i data-lucide="refresh-cw"></i> Décalage des lignes de commentaires</h3>
-                    <p><strong>Cause :</strong> L'actualisation des données écrase la correspondance des lignes dynamiques venant de SAP.</p>
-                    <p><strong>Solution :</strong> Vérifier la validité de la <strong>clé d'association unique</strong> créée sous Excel.</p>
-                </div>
+            <!-- Bloc : À qui c'est destiné -->
+            <div class="card" style="margin-bottom: 25px;">
+                <h3><i data-lucide="users"></i> Pourquoi cette doc ?</h3>
+                <p>Cette documentation est <strong>faite pour toi</strong> - la personne qui va reprendre mon travail. L'objectif est simple :</p>
+                <ul style="margin-top: 12px;">
+                    <li>📖 <strong>Comprendre</strong> ce que j'ai fait et comment ça fonctionne</li>
+                    <li>🔧 <strong>Maintenir</strong> l'outil sans problème au quotidien</li>
+                    <li>📈 <strong>Améliorer</strong> et faire évoluer le système si besoin</li>
+                    <li>🛠️ <strong>Réparer</strong> les bugs rapidement si ça casse</li>
+                </ul>
             </div>
 
-            <!-- Section : Règles de Calcul -->
-            <h2 class="section-title"><i data-lucide="binary"></i> Répertoire Documentaire des Règles de Calcul</h2>
-            <div class="card">
-                <p>Les règles empiriques ont été nettoyées et écrites en clair. Voici les blocs logiques majeurs :</p>
+            <!-- Bloc : Les 4 rapports -->
+            <div class="card" style="margin-bottom: 25px;">
+                <h3><i data-lucide="list"></i> Ce qu'on va couvrir : 4 Rapports Majeurs</h3>
+                <p style="margin-bottom: 15px;">L'outil de reporting que j'ai construit gère <strong>4 rapports principaux</strong> pour l'équipe Production Planning :</p>
                 
-                <div style="margin-top: 20px;">
-                    <strong>📊 Calcul du Reste à Livrer :</strong>
-                    <div class="code-block">Reste_a_Livrer = [Quantite_Commandee] - [Quantite_Deja_Livree]</div>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <strong>🔍 Filtrage de Traçabilité :</strong>
-                    <div class="code-block">Table.SelectRows(Source, each [Type_Poste] <> "Échantillon" and [Type_Poste] <> "Test")</div>
+                <div class="grid-2">
+                    <div style="padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid rgb(59, 130, 246);">
+                        <strong>1️⃣ Chargement Direct</strong>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: var(--text-secondary);">Détection des produits manquants</p>
+                    </div>
+                    <div style="padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid rgb(59, 130, 246);">
+                        <strong>2️⃣ Carnet de Commandes</strong>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: var(--text-secondary);">Visibilité sur les prochaines semaines</p>
+                    </div>
+                    <div style="padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid rgb(59, 130, 246);">
+                        <strong>3️⃣ Suivi des Expéditions</strong>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: var(--text-secondary);">Traçabilité des livraisons</p>
+                    </div>
+                    <div style="padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid rgb(59, 130, 246);">
+                        <strong>4️⃣ Suivi des Stocks</strong>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: var(--text-secondary);">Niveaux de réserve et alertes</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- Bloc : Comment utiliser cette doc -->
+            <div class="card">
+                <h3><i data-lucide="navigation"></i> Comment explorer la doc ?</h3>
+                <p style="margin-bottom: 15px;">Sur la <strong>gauche</strong>, tu trouveras tous les sections :</p>
+                <ul style="margin-top: 12px;">
+                    <li>📋 <strong>Contexte & Entreprise</strong> - Pour comprendre le contexte du projet</li>
+                    <li>📊 <strong>Les 4 Rapports détaillés</strong> - Chacun expliqué en détail avec schémas et procédures</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--text-secondary); font-size: 0.95em;">Clique sur chaque rapport pour découvrir comment il fonctionne, quelle est l'architecture technique, et comment le maintenir.</p>
+            </div>
+
         </div>
 
         <!-- PAGE : CONTEXTE & ENTREPRISE -->
@@ -187,7 +165,7 @@
 
             <h2 class="section-title"><i data-lucide="building" class="nav-icon"></i> Présentation de Rockwool</h2>
             <div class="card">
-                <p>Le stage s'est déroulé au sein de l'<strong>usine Rockwool de Saint-Éloy-les-Mines</strong>, un site industriel dédié à la fabrication de laine de roche pour l'isolation thermique et acoustique. <strong>Rockwool</strong> est le leader mondial sur ce marché.</p>
+                <p>Le stage s'est déroulé au sein de l'<strong>usine Rockwool de Saint-Éloy-les-Mines</strong>, un site industriel dédié à la fabrication de laine de roche pour l'isolation [...]
                 <p><strong>Valeurs fondamentales :</strong> Intégrité, Sécurité, Durabilité, Excellence.</p>
             </div>
 
@@ -206,7 +184,7 @@
 
             <h2 class="section-title"><i data-lucide="target" class="nav-icon"></i> Problématique & Enjeux</h2>
             <div class="card">
-                <p>Chaque rapport du Production Planning nécessitait une <strong>extraction manuelle depuis SAP</strong>, un passage par une <strong>base Access</strong> pour exécuter les requêtes, puis une <strong>mise en forme sous Excel</strong>. Ce circuit en trois étapes était :</p>
+                <p>Chaque rapport du Production Planning nécessitait une <strong>extraction manuelle depuis SAP</strong>, un passage par une <strong>base Access</strong> pour exécuter les requ[...]
                 <ul>
                     <li>❌ Long et répétitif</li>
                     <li>❌ Difficile à maintenir</li>
@@ -277,7 +255,7 @@
 
             <div class="card card-accent-rw">
                 <h3><i data-lucide="target"></i> Objectif Opérationnel</h3>
-                <p>Recenser <strong>immédiatement les produits manquants</strong> à l'instant critique entre l'affrètement et le chargement. Toute insuffisance de stock bloque le départ du camion et retarde la livraison. Le rapport isole la cause du blocage et transmet des consignes correctives aux équipes du magasin.</p>
+                <p>Recenser <strong>immédiatement les produits manquants</strong> à l'instant critique entre l'affrètement et le chargement. Toute insuffisance de stock bloque le départ du ca[...]
             </div>
 
             <h2 class="section-title"><i data-lucide="git-branch"></i> Architecture du Flux</h2>
@@ -400,7 +378,7 @@ SINON<br>
             <h2 class="section-title"><i data-lucide="check" class="nav-icon"></i> Statut de Déploiement</h2>
             <div class="card card-accent-success">
                 <h3>✅ Déployé & Opérationnel</h3>
-                <p><strong>Le rapport Chargement Direct est en production quotidienne</strong> depuis son déploiement. Les retours utilisateurs sont positifs, notamment sur la fiabilité des données et la lisibilité des rapports.</p>
+                <p><strong>Le rapport Chargement Direct est en production quotidienne</strong> depuis son déploiement. Les retours utilisateurs sont positifs, notamment sur la fiabilité des don[...]
             </div>
         </div>
 
@@ -416,7 +394,7 @@ SINON<br>
 
             <div class="card card-accent-rw">
                 <h3><i data-lucide="target"></i> Objectif Opérationnel</h3>
-                <p>Offrir une <strong>visibilité glissante sur un horizon H de 6 semaines</strong> (de S-1 à S+4) pour aligner la demande commerciale avec les capacités réelles de production et de stockage. Cet outil permet de gérer les urgences 3J, arbitrer l'adéquation charge/capacité et soutenir l'ordonnancement.</p>
+                <p>Offrir une <strong>visibilité glissante sur un horizon H de 6 semaines</strong> (de S-1 à S+4) pour aligner la demande commerciale avec les capacités réelles de production [...]
             </div>
 
             <h2 class="section-title"><i data-lucide="database"></i> Tables Sources SAP</h2>
@@ -448,7 +426,7 @@ SINON<br>
                         </tr>
                     </tbody>
                 </table>
-                <p style="margin-top: 15px;"><strong>Groupes de données additionnels intégrés :</strong> Stocks physiques (MARD), fiches articles (MARC, MARA, MAKT), transport (VTTK), adresses (VBPA, ADRC).</p>
+                <p style="margin-top: 15px;"><strong>Groupes de données additionnels intégrés :</strong> Stocks physiques (MARD), fiches articles (MARC, MARA, MAKT), transport (VTTK), adresses[...]
             </div>
 
             <h2 class="section-title"><i data-lucide="git-branch"></i> Architecture du Flux</h2>
@@ -466,7 +444,7 @@ SINON<br>
 
             <h2 class="section-title"><i data-lucide="zap"></i> Logique de Calcul en Cascade</h2>
             <div class="card">
-                <p>Le calcul repose sur une <strong>transmission dynamique des soldes</strong> d'une période à l'autre. La ressource initiale couvre d'abord le retard en S-1 et le besoin de S0.</p>
+                <p>Le calcul repose sur une <strong>transmission dynamique des soldes</strong> d'une période à l'autre. La ressource initiale couvre d'abord le retard en S-1 et le besoin de S0.[...]
                 
                 <h4>Ressources Initiales</h4>
                 <p>Stock disponible + Quarantaine + Encours (Aujourd'hui + Demain)</p>
@@ -637,7 +615,7 @@ Stock_Fin_S+1 = MAX(Stock_Fin_S0 - Besoin_S+1, 0)<br>
 
             <h2 class="section-title"><i data-lucide="leaf"></i> Bénéfices de la Refonte</h2>
             <div class="card">
-                <p>Ce rapport bénéficiera du travail d'exploration réalisé pour les rapports précédents. Les tables SAP pertinentes sont en grande partie déjà connues, ce qui devrait accélérer significativement sa conception et son implémentation.</p>
+                <p>Ce rapport bénéficiera du travail d'exploration réalisé pour les rapports précédents. Les tables SAP pertinentes sont en grande partie déjà connues, ce qui devrait acc[...]
             </div>
         </div>
 
